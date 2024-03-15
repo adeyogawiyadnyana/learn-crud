@@ -1,4 +1,4 @@
-import ContactTable from "@/components/ContactTable";
+import ContactTable from "@/app/contact/components/ContactTable";
 import React from "react";
 
 const page = () => {

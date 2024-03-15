@@ -1,3 +1,5 @@
+"use client";
+import { deleteContact } from "@/lib/action";
 import { IconEdit, IconTrash } from "@tabler/icons-react";
 import Link from "next/link";
 import React from "react";
@@ -14,10 +16,10 @@ export const ButtonCreate = () => {
 	);
 };
 
-export const EditButton = () => {
+export const EditButton = ({ id }: { id: string }) => {
 	return (
 		<div className="">
-			<Link href={"/contact/edit"}>
+			<Link href={`/contact/update/${id}`}>
 				<button className="flex gap-2 bg-green-500 px-4 py-1 rounded text-white font-semibold items-center">
 					<IconEdit />
 					Edit
@@ -26,15 +28,27 @@ export const EditButton = () => {
 		</div>
 	);
 };
-export const DeleteButton = () => {
+
+export const DeleteButton = ({ id }: { id: string }) => {
+	const deleteId = deleteContact.bind(null, id);
 	return (
 		<div className="">
-			<Link href={"/contact/Delete"}>
+			<form
+				onSubmit={(e) => {
+					e.preventDefault();
+					const confirmation = window.confirm(
+						"Are you sure you want to delete this contact?"
+					);
+					if (confirmation) {
+						deleteId();
+					}
+				}}
+			>
 				<button className="flex gap-2 bg-red-500 px-4 py-1 rounded text-white font-semibold items-center">
 					<IconTrash />
 					Delete
 				</button>
-			</Link>
+			</form>
 		</div>
 	);
 };
