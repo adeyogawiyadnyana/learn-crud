@@ -4,8 +4,8 @@ import { formatDate } from "@/lib/utils";
 import SearchInput from "./SearchInput";
 import { ButtonCreate, DeleteButton, EditButton } from "./Button";
 
-const ContactTable = async () => {
-	const data = await getContact();
+const ContactTable = async ({ query, currentPage }: { query: string; currentPage: number }) => {
+	const contacts = await getContact(query, currentPage);
 
 	return (
 		<div className="w-full xl:px-24">
@@ -34,7 +34,7 @@ const ContactTable = async () => {
 					</tr>
 				</thead>
 				<tbody className="w-full">
-					{data.map((item, index) => (
+					{contacts.map((item, index) => (
 						<tr key={item.id} className="w-full">
 							<td className="px-6 py-2 border-b border-r text-center">
 								{index + 1}
